@@ -17,9 +17,10 @@ public class StockManager {
 		this.ticker = ticker;
 	}
 	
-	public void start () {
+	public StockManager start () {
 		Timer timer = new Timer();
 		timer.schedule(new MovingAveragesTask(ticker), Calendar.getInstance().getTime(), TimeUnit.MILLISECONDS.convert(1, TimeUnit.DAYS));
+		return this;
 	}
 	
 	private class MovingAveragesTask extends TimerTask {
