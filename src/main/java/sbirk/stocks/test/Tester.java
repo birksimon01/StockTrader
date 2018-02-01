@@ -1,4 +1,4 @@
-package sbirk.stocks.helper;
+package sbirk.stocks.test;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,7 +17,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import sbirk.stocks.retrieval.StockQuote;
+import sbirk.stocks.service.StockQuote;
 
 public class Tester {
 	private static Connection connection = Jsoup.connect("https://finance.yahoo.com/quote/IBM");

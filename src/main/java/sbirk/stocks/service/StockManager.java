@@ -1,4 +1,4 @@
-package sbirk.stocks.core;
+package sbirk.stocks.service;
 
 import java.math.BigDecimal;
 import java.util.Calendar;
@@ -6,7 +6,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
-import sbirk.stocks.retrieval.StockQuote;
+import sbirk.stocks.core.StockCore;
+import sbirk.stocks.dao.FileRW;
 
 public class StockManager {
 	
@@ -42,7 +43,7 @@ public class StockManager {
 			// 1 = 50dma > 200dma || BUY status
 			// 2 = 50dma < 200dma || SELL status
 			buySellStatus = 0;
-			sQuote = StockCore.stockMap.get(ticker);
+			sQuote = StockCore.getStockMap().get(ticker);
 			fileRW = sQuote.getFileRW();
 			calendar = Calendar.getInstance();
 		}

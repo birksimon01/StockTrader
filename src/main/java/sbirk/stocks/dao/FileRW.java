@@ -1,4 +1,4 @@
-package sbirk.stocks.core;
+package sbirk.stocks.dao;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;

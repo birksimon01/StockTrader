@@ -1,4 +1,4 @@
-package sbirk.stocks.retrieval;
+package sbirk.stocks.service;
 
 
 import java.io.File;
@@ -17,7 +17,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import sbirk.stocks.core.FileRW;
+import sbirk.stocks.dao.FileRW;
 
 import java.util.Calendar;
 import java.util.Date;
