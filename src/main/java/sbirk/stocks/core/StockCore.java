@@ -29,7 +29,6 @@ public class StockCore {
 		if (tickers != null) {
 			this.tickerList.addAll(tickers);
 		}
-		calendar = Calendar.getInstance();
 	}
 	
 	public void init () {
