@@ -34,14 +34,17 @@ public class StockManager {
 		private BigDecimal dma50;
 		private BigDecimal dma200;
 		
+		private Calendar calendar;
+		
 		public MovingAveragesTask (String ticker) {
 			this.ticker = ticker;
 			// 0 = indeterminate
 			// 1 = 50dma > 200dma || BUY status
 			// 2 = 50dma < 200dma || SELL status
 			buySellStatus = 0;
-			sQuote = stockMap.get(ticker);
+			sQuote = StockCore.stockMap.get(ticker);
 			fileRW = sQuote.getFileRW();
+			calendar = Calendar.getInstance();
 		}
 		
 		@Override
@@ -64,13 +67,13 @@ public class StockManager {
 				if (dma50.compareTo(dma200) == 1) {
 					if (buySellStatus == 2) {
 						//implement determination of quantity
-						buyOrder(ticker, BigDecimal.ZERO, 0, 0, BACKTESTING_MODE);
+						//buyOrder(ticker, BigDecimal.ZERO, 0, 0, BACKTESTING_MODE);
 					}
 					buySellStatus = 1;
 				} else if (dma50.compareTo(dma200) == -1) {
 					if (buySellStatus == 1) {
 						//implement 
-						sellOrder(ticker, BigDecimal.ZERO, 0, 0, BACKTESTING_MODE);
+						//sellOrder(ticker, BigDecimal.ZERO, 0, 0, BACKTESTING_MODE);
 					}
 					buySellStatus = 2;
 				} else {

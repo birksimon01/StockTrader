@@ -17,8 +17,6 @@ public class StockCore {
 	
 	private List<String> tickerList;
 	
-	private Calendar calendar;
-	
 	private boolean BACKTESTING_MODE = false;
 	
 	public static void main(String[] args) {
@@ -42,12 +40,5 @@ public class StockCore {
 		for (String ticker: tickerList) {
 			stockMap.put(ticker, new StockQuote(ticker));
 		}
-	}
-	
-	public boolean sellOrder (String ticker, BigDecimal priceMax, int quantity, long timeout, boolean isBackTest) {
-		return false;
-	}
-	public boolean buyOrder (String ticker, BigDecimal priceMin, int quantity, long timeout, boolean isBackTest) {
-		return false;
 	}
 }
