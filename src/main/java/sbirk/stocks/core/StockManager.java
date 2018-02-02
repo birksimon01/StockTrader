@@ -1,4 +1,4 @@
-package sbirk.stocks.service;
+package sbirk.stocks.core;
 
 import java.math.BigDecimal;
 import java.util.Calendar;
@@ -6,8 +6,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
-import sbirk.stocks.core.StockCore;
-import sbirk.stocks.dao.FileRW;
+import sbirk.stocks.dao.DailyFileManager;
 
 public class StockManager {
 	
@@ -28,14 +27,12 @@ public class StockManager {
 		
 		private String ticker;
 		private StockQuote sQuote;
-		private FileRW fileRW;	
+		private DailyFileManager dailyFileManager;	
 		private int buySellStatus;		
 		private BigDecimal dma50Previous;
 		private BigDecimal dma200Previous;
 		private BigDecimal dma50;
 		private BigDecimal dma200;
-		
-		private Calendar calendar;
 		
 		public MovingAveragesTask (String ticker) {
 			this.ticker = ticker;
@@ -43,19 +40,16 @@ public class StockManager {
 			// 1 = 50dma > 200dma || BUY status
 			// 2 = 50dma < 200dma || SELL status
 			buySellStatus = 0;
-			sQuote = StockCore.getStockMap().get(ticker);
-			fileRW = sQuote.getFileRW();
-			calendar = Calendar.getInstance();
+			sQuote = StockCore.getStockQuoteMap().get(ticker);
+			dailyFileManager = sQuote.getDailyFileManager();
 		}
 		
 		@Override
 		public void run() {
-			String[] date = calendar.getTime().toString().split(" ");
-			String day = new String(date[1] + " " + date[2]);
-			String year = date[5];
-			dma50 = new BigDecimal(fileRW.getStatistic(day, year, "50-Day Moving Average"));
-			dma200 = new BigDecimal(fileRW.getStatistic(day, year, "200-Day Moving Average"));
-			// make this more permanent in future*** i.e. store in file or grab from file in constructor
+			String dateTime = Calendar.getInstance().getTime().toString();
+			dma50 = new BigDecimal(dailyFileManager.getStatistic(dateTime, "50-Day Moving Average"));
+			dma200 = new BigDecimal(dailyFileManager.getStatistic(dateTime, "200-Day Moving Average"));
+			// make buy/sell status more permanent in future*** i.e. store in file or grab from file in constructor
 			if (buySellStatus == 0) {
 				if (dma50.compareTo(dma200) == 1) {
 					buySellStatus = 1;

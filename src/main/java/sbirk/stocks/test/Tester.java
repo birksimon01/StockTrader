@@ -17,7 +17,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import sbirk.stocks.service.StockQuote;
+import sbirk.stocks.core.StockQuote;
 
 public class Tester {
 	private static Connection connection = Jsoup.connect("https://finance.yahoo.com/quote/IBM");

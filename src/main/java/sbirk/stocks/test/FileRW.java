@@ -1,16 +1,24 @@
-package sbirk.stocks.dao;
+package sbirk.stocks.test;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.FileAlreadyExistsException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+import sbirk.stocks.core.StockCore;
 
 public class FileRW {
 	
 	private Object syncObject = new Object();
 	
-	private String dataPath = new String("C:\\Users\\Birk\\Desktop\\StockData\\");
+	private String dataPath;
+	private String liveFileName = new String("liveQuote.txt");
 	
 	private FileWriter liveFW;
 	private FileWriter dailyFW;
@@ -21,6 +29,38 @@ public class FileRW {
 	
 	public FileRW (String ticker) {
 		this.ticker = ticker;
+		dataPath = new String(StockCore.getDataDirectory() + ticker);
+		new File(dataPath).mkdir();
+		Path liveFile = Paths.get(dataPath + "\\" + liveFileName);
+		Path dailyFile = Paths.get(dataPath + "\\" + dailyFileName);
+		System.out.println("liveQuote.txt startup initiation");
+		try {
+		    // Create the empty file with default permissions, etc.
+		    Files.createFile(liveFile);
+		    System.out.println("liveQuote.txt not found, successfully created");
+		} catch (FileAlreadyExistsException x) {
+			//Does nothing if file already exists
+			System.out.println("liveQuote.txt already created, no file initialization needed");
+		} catch (IOException x) {
+		    // Some other sort of failure, such as permissions.
+			System.out.println("liveQuote.txt file creation failed, program terminating");
+			System.exit(1);
+		}
+		
+		System.out.println("dailyQuote.txt startup initiation");
+		try {
+		    // Create the empty file with default permissions, etc.
+		    Files.createFile(dailyFile);
+		    System.out.println("dailyQuote.txt not found, successfully created");
+		} catch (FileAlreadyExistsException x) {
+			//Does nothing if file already exists
+			System.out.println("dailyQuote.txt already created, no file initialization needed");
+		} catch (IOException x) {
+		    // Some other sort of failure, such as permissions.
+			System.out.println("dailyQuote.txt file creation failed, program terminating");
+			System.exit(1);
+		}
+		
 		try {
 			liveFW = new FileWriter(dataPath + ticker + "\\" + "liveQuote.txt");
 			dailyFW = new FileWriter(dataPath + ticker + "\\" + "dailyQuote.txt");

@@ -1,26 +1,21 @@
 package sbirk.stocks.core;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.concurrent.TimeUnit;
-
-import sbirk.stocks.service.StockQuote;
 
 public class StockCore {
 	
-	private static HashMap<String, StockQuote> stockMap;
+	private static String dataDir = new String("C:\\Users\\Birk\\Desktop\\StockData\\");
+	
+	private static HashMap<String, StockQuote> stockQuoteMap;
+	private static HashMap<String, StockManager> stockManagerMap;
 	
 	private List<String> tickerList;
 	
 	private boolean BACKTESTING_MODE = false;
 	
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		
 	}
 	
@@ -29,6 +24,7 @@ public class StockCore {
 		if (tickers != null) {
 			this.tickerList.addAll(tickers);
 		}
+		init();
 	}
 	
 	public void init () {
@@ -37,15 +33,20 @@ public class StockCore {
 		tickerList.add("HD");
 		//stuff
 		for (String ticker: tickerList) {
-			getStockMap().put(ticker, new StockQuote(ticker));
+			stockQuoteMap.put(ticker, new StockQuote(ticker).start());
+			stockManagerMap.put(ticker, new StockManager(ticker).start());
 		}
 	}
-
-	public static HashMap<String, StockQuote> getStockMap() {
-		return stockMap;
+	
+	public static String getDataDirectory () {
+		return dataDir;
+	}
+	
+	public static HashMap<String, StockQuote> getStockQuoteMap() {
+		return stockQuoteMap;
 	}
 
-	public static void setStockMap(HashMap<String, StockQuote> stockMap) {
-		StockCore.stockMap = stockMap;
+	protected static void setStockMap(HashMap<String, StockQuote> stockMap) {
+		StockCore.stockQuoteMap = stockMap;
 	}
 }
