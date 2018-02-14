@@ -2,7 +2,6 @@ package sbirk.stocks.core;
 
 
 import java.io.IOException;
-import java.io.UncheckedIOException;
 
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
@@ -50,7 +49,7 @@ public class StockQuote {
 		dailyFileManager = new DailyFileManager(ticker);
 		liveFileManager = new LiveFileManager(ticker);
 		
-		yahooFinanceParser = new YFParser(ticker);
+		yahooFinanceParser = new YFParser();
 	}
 	
 	public StockQuote start () {
@@ -78,26 +77,7 @@ public class StockQuote {
 			StringBuilder buf = new StringBuilder();
 			dailyDayLast = Calendar.getInstance().getTime();
 			buf.append(calendarHelper.parseDate(dailyDayLast.toString()));
-			Element quoteSummary = doc.getElementById("quote-summary");
-			Element quoteStats = statsDoc.getElementById("Col1-0-KeyStatistics-Proxy");
-			Elements stockInfo = quoteSummary.getElementsByClass("Bxz(bb) Bdbw(1px) Bdbs(s) Bdc($c-fuji-grey-c) H(36px) ");
-			Elements stockStats = quoteStats.getElementsByTag("tr");
-			stockInfo.add(quoteSummary.getElementsByClass("Bxz(bb) Bdbw(1px) Bdbs(s) Bdc($c-fuji-grey-c) H(36px) Bdbw(0)! ").first());
-			for(Element info: stockInfo) {
-				Elements cutInfo = info.getElementsByClass("Ta(end) Fw(b) Lh(14px)");
-				String dataType = cutInfo.first().attr("data-test");
-				String sInfo = cutInfo.first().toString();
-				String sValue;
-				if (sInfo.contains("-->")) {
-					sValue = sInfo.substring(sInfo.indexOf("-->") + 3, sInfo.lastIndexOf("<!--")).trim();
-				} else {
-					sValue = cutInfo.first().text();
-				}
-				buf.append("||" + dataType.replaceAll("-value", "") + "|" + sValue);
-			}
-			for(Element stat: stockStats) {
-				buf.append("||" + stat.child(0).text() + "|" + stat.child(1).text());
-			}
+			buf.append(yahooFinanceParser.getDailyQuoteStatistics());
 			lastDailyStatistic = buf.toString();
 			System.out.println("Daily: " + buf.toString());
 			dailyFileManager.write(buf.toString(), true);
@@ -110,7 +90,7 @@ public class StockQuote {
 		@Override
 		public void run() {
 			
-			Quote liveQuote = yahooFinanceParser.getQuotePrice();
+			Quote liveQuote = yahooFinanceParser.getLiveQuote();
 			String liveQuoteFinal = new String(calendarHelper.parseDate(Calendar.getInstance().getTime().toString()) + "||" + liveQuote.getTime() + "||" + liveQuote.getPrice());
 			System.out.println(liveQuoteFinal);
 			liveFileManager.write(liveQuoteFinal, true);
