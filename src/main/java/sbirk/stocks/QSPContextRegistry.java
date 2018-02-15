@@ -9,8 +9,9 @@ import sbirk.stocks.domain.QuoteSourceParser;
 public class QSPContextRegistry {
 	
 	public HashMap<String, QuoteSourceParser> qspMap;
+	public QSPContextRegistry qspInstance = null;
 	
-	public QSPContextRegistry (ApplicationContext ctx) {
+	private QSPContextRegistry (ApplicationContext ctx) {
 		for (String beanNames: ctx.getBeanDefinitionNames()) {
 			Object beanObject = ctx.getBean(beanNames);
 			if (beanObject instanceof QuoteSourceParser) {
@@ -22,6 +23,13 @@ public class QSPContextRegistry {
 			}
 		}
 		
+	}
+	
+	public QSPContextRegistry getInstance(ApplicationContext ctx) {
+		if (qspInstance == null) {
+			qspInstance = new QSPContextRegistry(ctx);
+		}
+		return qspInstance;
 	}
 	
 	public QuoteSourceParser getQSP (String name) {
