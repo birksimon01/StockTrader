@@ -15,11 +15,21 @@ import org.springframework.context.annotation.PropertySource;
 @ComponentScan("sbirk")
 @PropertySource("classpath:config.properties")
 public class StockApplication {
-		
-	public static ApplicationContext ctx;
+	
+	@Autowired
+	public ApplicationContext ctx;
+	
+	@Autowired
+	public QSPContextRegistry qspContextRegistry;
+	
+	@Autowired
+	public TPContextRegistry tpContextRegistry;
+	
+	@Autowired
+	public SAAContextRegistry saaContextRegistry;
 	public static void main (String[] args) {
-		ctx = SpringApplication.run(StockApplication.class, args);
-		new QSPContextRegistry(ctx);
+		SpringApplication.run(StockApplication.class, args);
+		
 	}
 	
 	@Bean

@@ -2,8 +2,7 @@ package sbirk.stocks;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.stereotype.Service;
-
+import org.springframework.stereotype.Component;
 
 @PropertySource("classpath:config.properties")
 @ConfigurationProperties(prefix = "stocks")
@@ -11,7 +10,7 @@ public class StockProperties {
 	
 	private String ticker;
 	private String quoteSite;
-	private String quoteStatsResponse;
+	private String statsAddon;
 	private String stockDataDirectory;
 	
 	private int secondsBetweenLiveQuoteFetch;
@@ -49,7 +48,7 @@ public class StockProperties {
 	}
 
 	public String getQuoteStatsResponse() {
-		return quoteStatsResponse;
+		return statsAddon;
 	}
 
 	public String getQuoteSite() {
