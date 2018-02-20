@@ -11,6 +11,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.PropertySource;
 
+import sbirk.stocks.registry.QSPContextRegistry;
+import sbirk.stocks.registry.SAAContextRegistry;
+import sbirk.stocks.registry.TPContextRegistry;
+
 @SpringBootApplication
 @ComponentScan("sbirk")
 @PropertySource("classpath:config.properties")
@@ -27,6 +31,7 @@ public class StockApplication {
 	
 	@Autowired
 	public SAAContextRegistry saaContextRegistry;
+	
 	public static void main (String[] args) {
 		SpringApplication.run(StockApplication.class, args);
 		

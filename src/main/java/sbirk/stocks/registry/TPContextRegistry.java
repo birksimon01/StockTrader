@@ -1,4 +1,4 @@
-package sbirk.stocks;
+package sbirk.stocks.registry;
 
 import java.util.HashMap;
 
