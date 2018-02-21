@@ -1,9 +1,11 @@
 package sbirk.stocks;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+@Configuration
 @PropertySource("classpath:config.properties")
 @ConfigurationProperties(prefix = "stocks")
 public class StockProperties {
@@ -21,6 +23,7 @@ public class StockProperties {
 	
 	private boolean backtestingMode;
 
+	
 	public boolean isBacktestingMode() {
 		return backtestingMode;
 	}
@@ -54,4 +57,5 @@ public class StockProperties {
 	public String getQuoteSite() {
 		return quoteSite;
 	}
+	
 }

@@ -9,7 +9,8 @@ public class Investment {
 	private BigDecimal boughtAt;
 	private int quantity;
 	
-	public Investment (BigDecimal boughtAt, int quantity) {
+	public Investment (String ticker, BigDecimal boughtAt, int quantity) {
+		this.ticker = ticker;
 		this.boughtAt = boughtAt;
 		this.quantity = quantity;
 		

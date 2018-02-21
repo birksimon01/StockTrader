@@ -38,11 +38,16 @@ public class YFParser implements QuoteSourceParser{
 	}
 	public Quote getLiveQuote () {
 		Document doc = null;
-		try {
-			doc = quoteConnection.get();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		int attempts = 0;
+		do {
+			attempts++;
+			try {
+				doc = quoteConnection.get();
+			} catch (IOException e) {
+				System.out.println("Failed getting doc from quoteConnection. Retrying");
+			}
+		} while ((doc == null) || attempts <= 3);
+		
 		String quoteCurrent = doc.getElementsByClass("Trsdu(0.3s) Fw(b) Fz(36px) Mb(-4px) D(ib)").toString();
 		String time = doc.getElementById("quote-market-notice").toString();
 		String quoteFinal = quoteCurrent.substring(quoteCurrent.indexOf("-->") + 3, quoteCurrent.lastIndexOf("<!--")).trim();
