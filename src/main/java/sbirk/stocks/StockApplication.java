@@ -33,9 +33,6 @@ public class StockApplication {
 	@Autowired
 	public SAAContextRegistry saaContextRegistry;
 
-	@Autowired
-	public DailyDataManager dailyDataManager;
-	
 	public static void main (String[] args) {
 		SpringApplication.run(StockApplication.class, args);
 	}

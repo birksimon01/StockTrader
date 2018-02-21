@@ -26,7 +26,6 @@ public class DailyDataManager {
 	public void addDailyData (DailyData dailyData) {
 		Session session = factory.openSession();
 		Transaction tx = null;
-		
 		try {
 			tx = session.beginTransaction();
 			session.save(dailyData);

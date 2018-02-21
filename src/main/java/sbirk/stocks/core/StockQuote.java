@@ -49,7 +49,7 @@ public class StockQuote {
 		dailyFileManager = new DailyFileManager(ticker);
 		liveFileManager = new LiveFileManager(ticker);
 		
-		yahooFinanceParser = new YFParser();
+		yahooFinanceParser = new YFParser(ticker);
 	}
 	
 	public StockQuote start () {

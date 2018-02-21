@@ -7,28 +7,40 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.DependsOn;
-import org.springframework.stereotype.Service;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.stereotype.Component;
 
-import sbirk.stocks.StockProperties;
 import sbirk.stocks.domain.Quote;
 import sbirk.stocks.domain.QuoteSourceParser;
 
-@Service
+@Component
+@PropertySource("classpath:config.properties")
 public class YFParser implements QuoteSourceParser{
+	// QUOTE_SOURCE_NAME = "YahooFinance";
+	// quoteSite = "https://finance.yahoo.com/quote/";
+	// statsAddon = "/key-statistics?p=";
 	
+	private final String QUOTE_SOURCE_NAME_PROPERTY = "${yf.sourcename}";
+	private final String QUOTE_SITE_PROPERTY = "${yf.source}";
+	private final String QUOTE_STATS_ADDON_PROPERTY = "${yf.statsquery}";
 	
-	private String QUOTE_SOURCE_NAME = "YahooFinance";
 	protected String ticker = "IBM";
-	protected String quoteSite = "https://finance.yahoo.com/quote/";
-	protected String statsAddon = "/key-statistics?p=";
 	
 	protected Connection statsConnection;
 	protected Connection quoteConnection;
 	
-	public YFParser () {
+	@Value (QUOTE_SOURCE_NAME_PROPERTY)
+	private String QUOTE_SOURCE_NAME;
+	
+	@Value (QUOTE_SITE_PROPERTY)
+	protected String quoteSite;
+	
+	@Value (QUOTE_STATS_ADDON_PROPERTY)
+	protected String statsAddon;
+	
+	public YFParser (String ticker) {
+		this.ticker=  ticker;
 		quoteConnection = Jsoup.connect(quoteSite + ticker);
 		statsConnection = Jsoup.connect(quoteSite + ticker + statsAddon + ticker);
 	}

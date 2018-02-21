@@ -38,10 +38,12 @@ public class PersistenceConfig {
 	   @Bean
 	   public DataSource restDataSource() {
 	      BasicDataSource dataSource = new BasicDataSource();
-	      dataSource.setDriverClassName(env.getProperty("spring.datasource.driverClassName"));
-	      dataSource.setUrl(env.getProperty("spring.datasource.url"));
-	      dataSource.setUsername(env.getProperty("spring.datasource.username"));
-	      dataSource.setPassword(env.getProperty("spring.datasource.password"));
+	      String s = env.getProperty("jdbc.driverClassName");
+	      System.out.println("DRIVER_CLASS_NAME: " + s);
+	      dataSource.setDriverClassName(s);
+	      dataSource.setUrl(env.getProperty("jdbc.url"));
+	      dataSource.setUsername(env.getProperty("jdbc.user"));
+	      dataSource.setPassword(env.getProperty("jdbc.pass"));
 	 
 	      return dataSource;
 	   }
@@ -52,7 +54,7 @@ public class PersistenceConfig {
 	     SessionFactory sessionFactory) {
 	      HibernateTransactionManager txManager
 	       = new HibernateTransactionManager();
-	      txManager.setSessionFactory(sessionFactory);
+	      txManager.setSessionFactory(sessionFactory().getObject());
 	 
 	      return txManager;
 	   }
@@ -66,9 +68,9 @@ public class PersistenceConfig {
 	      return new Properties() {
 	         {
 	            setProperty("hibernate.hbm2ddl.auto",
-	              env.getProperty("spring.jpa.hibernate.ddl-auto"));
+	              env.getProperty("hibernate.hbm2ddl.auto"));
 	            setProperty("hibernate.dialect",
-	              env.getProperty("spring.jpa.hibernate.dialect"));
+	              env.getProperty("hibernate.dialect"));
 	            setProperty("hibernate.globally_quoted_identifiers",
 	             "true");
 	         }
