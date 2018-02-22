@@ -17,10 +17,13 @@ import java.util.concurrent.TimeUnit;
 public class SimpleMovingAverageAlgorithm implements StockAnalysisAlgorithm {
 	public BigDecimal dma50;
 	public BigDecimal dma200;
-	public SimpleMovingAverageAlgorithm (String ticker) {
+	public String ticker;
+	public SimpleMovingAverageAlgorithm () {
 		
 	}
-	
+	public void start(String ticker) {
+		this.ticker = ticker;
+	}
 	@Override
 	public String getAlgorithmName() {
 		// TODO Auto-generated method stub

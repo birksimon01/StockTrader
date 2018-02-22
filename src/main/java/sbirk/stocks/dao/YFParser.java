@@ -17,9 +17,6 @@ import sbirk.stocks.domain.QuoteSourceParser;
 @Component
 @PropertySource("classpath:config.properties")
 public class YFParser implements QuoteSourceParser{
-	// QUOTE_SOURCE_NAME = "YahooFinance";
-	// quoteSite = "https://finance.yahoo.com/quote/";
-	// statsAddon = "/key-statistics?p=";
 	
 	private final String QUOTE_SOURCE_NAME_PROPERTY = "${yf.sourcename}";
 	private final String QUOTE_SITE_PROPERTY = "${yf.source}";
@@ -39,12 +36,15 @@ public class YFParser implements QuoteSourceParser{
 	@Value (QUOTE_STATS_ADDON_PROPERTY)
 	protected String statsAddon;
 	
-	public YFParser (String ticker) {
-		this.ticker=  ticker;
+	public YFParser () {
+		
+	}
+	//TODO: review the structure of this class to allow for it to switch stocks its watching
+	public void start(String ticker) {
+		this.ticker=ticker;
 		quoteConnection = Jsoup.connect(quoteSite + ticker);
 		statsConnection = Jsoup.connect(quoteSite + ticker + statsAddon + ticker);
 	}
-	
 	public String getQuoteSourceName() {
 		return QUOTE_SOURCE_NAME;
 	}

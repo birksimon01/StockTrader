@@ -1,42 +1,32 @@
 package sbirk.stocks.domain;
 
-import java.io.Serializable;
 import java.sql.Timestamp;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
-@Entity
-@Table(name = "DAILY")
-public class DailyData implements Serializable {
+public class DailyData {
 	
-	@Id @GeneratedValue
-	@Column (name = "ID")
-	private Integer Id;
+	public DailyData (String ticker, Timestamp time, Double dma50, Double dma200, Integer buyVolumes, Double closePrevious, Double openCurrent) {
+		this.ticker = ticker;
+		this.time = time;
+		this.dma50 = dma50;
+		this.dma200 = dma200;
+		this.buyVolumes = buyVolumes;
+		this.closePrevious = closePrevious;
+		this.openCurrent = openCurrent;
+	}
 	
-	@Column (name = "TICKER")
 	private String ticker;
 	
-	@Column (name = "TIME")
 	private Timestamp time;
 	
-	@Column (name = "DMA50")
-	private Long dma50;
+	private Double dma50;
 	
-	@Column (name = "DMA200")
-	private Long dma200;
+	private Double dma200;
 	
-	@Column (name = "BUYVOL")
-	private Long buyVolumes;
+	private Integer buyVolumes;
 	
-	@Column (name = "CLSPREV")
-	private Long closePrevious;
+	private Double closePrevious;
 	
-	@Column (name = "OPENCUR")
-	private Long openCurrent;
+	private Double openCurrent;
 	
 	
 	public void setTicker(String ticker) {
@@ -47,28 +37,24 @@ public class DailyData implements Serializable {
 		this.time = time;
 	}
 
-	public void setDma50(Long dma50) {
+	public void setDma50(Double dma50) {
 		this.dma50 = dma50;
 	}
 
-	public void setDma200(Long dma200) {
+	public void setDma200(Double dma200) {
 		this.dma200 = dma200;
 	}
 
-	public void setBuyVolumes(Long buyVolumes) {
+	public void setBuyVolumes(Integer buyVolumes) {
 		this.buyVolumes = buyVolumes;
 	}
 
-	public void setClosePrevious(Long closePrevious) {
+	public void setClosePrevious(Double closePrevious) {
 		this.closePrevious = closePrevious;
 	}
 
-	public void setOpenCurrent(Long openCurrent) {
+	public void setOpenCurrent(Double openCurrent) {
 		this.openCurrent = openCurrent;
-	}
-	
-	public Integer getId () {
-		return Id;
 	}
 	
 	public String getTicker() {
@@ -79,23 +65,23 @@ public class DailyData implements Serializable {
 		return time;
 	}
 	
-	public Long getDma50() {
+	public Double getDma50() {
 		return dma50;
 	}
 	
-	public Long getDma200() {
+	public Double getDma200() {
 		return dma200;
 	}
 
-	public Long getBuyVolumes() {
+	public Integer getBuyVolumes() {
 		return buyVolumes;
 	}
 	
-	public Long getClosePrevious() {
+	public Double getClosePrevious() {
 		return closePrevious;
 	}
 
-	public Long getOpenCurrent() {
+	public Double getOpenCurrent() {
 		return openCurrent;
 	}
 	

@@ -33,7 +33,10 @@ public class StockApplication {
 	@Autowired
 	public SAAContextRegistry saaContextRegistry;
 
-	public static void main (String[] args) {
+	@Autowired
+	public DailyDataManager dailyDataManager;
+	
+	public static void main (String[] args) throws InterruptedException {
 		SpringApplication.run(StockApplication.class, args);
 	}
 	

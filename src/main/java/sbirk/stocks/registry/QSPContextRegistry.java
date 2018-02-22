@@ -24,7 +24,8 @@ public class QSPContextRegistry {
 			
 			if (beanNames.equals("TPContextRegistry") 
 					|| beanNames.equals("QSPContextRegistry") 
-						|| beanNames.equals("SAAContextRegistry")) continue;
+						|| beanNames.equals("SAAContextRegistry")
+							|| beanNames.equalsIgnoreCase("QuoteSourceParserFactory")) continue;
 			
 			Object beanObject = ctx.getBean(beanNames);
 			System.out.println("Class: " + beanObject.toString());

@@ -1,16 +1,12 @@
 package sbirk.stocks;
 
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @PropertySource("classpath:config.properties")
-@ConfigurationProperties(prefix = "stocks")
 public class StockProperties {
 	
-	private String ticker;
 	private String quoteSite;
 	private String statsAddon;
 	private String stockDataDirectory;
@@ -43,9 +39,6 @@ public class StockProperties {
 		return secondsBetweenLiveQuoteFetch;
 	}
 	
-	public String getTicker() {
-		return ticker;
-	}
 	public String getStockDataDirectory() {
 		return stockDataDirectory;
 	}
