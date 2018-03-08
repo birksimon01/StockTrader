@@ -5,8 +5,8 @@ public interface QuoteSourceParser {
 	
 	public String getQuoteSourceName();
 	
-	public Quote getLiveQuote();
+	public LiveData getLiveQuote();
 	
-	public String getDailyQuoteStatistics();
+	public DailyData getDailyQuoteStatistics();
 	
 }

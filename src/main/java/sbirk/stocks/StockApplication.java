@@ -17,8 +17,6 @@ import sbirk.stocks.registry.SAAContextRegistry;
 import sbirk.stocks.registry.TPContextRegistry;
 
 @SpringBootApplication
-@ComponentScan("sbirk")
-@PropertySource("classpath:config.properties")
 public class StockApplication {
 	
 	@Autowired

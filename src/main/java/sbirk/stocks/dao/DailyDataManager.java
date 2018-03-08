@@ -42,14 +42,7 @@ public class DailyDataManager {
 		}
 	}
 	public void addTheThing() {
-		addDailyDataEntry (new DailyData(
-				"IBM",
-				new Timestamp(System.currentTimeMillis()),
-				new Double(3.3),
-				new Double(4.4),
-				new Integer(55555),
-				new Double(6.6),
-				new Double(7.7)));
+		
 	}
 	
 	private String toDate(int daysFromToday) {
@@ -63,7 +56,7 @@ public class DailyDataManager {
 	public void addDailyDataEntry (DailyData dailyData)
     {
         try {
-            String sql = "INSERT into FINANCE.DAILY(TICKER, TIMESTAMP, DMA50, DMA200, BUYVOL, CLSPREV, OPENCUR) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT into finance.DAILY(TICKER, TIME, DMA50, DMA200, CLSPREV, OPENCUR, BUYVOL, DIVPAY, YEARCEIL, YEARFLR) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             jdbcTemplate.update(new PreparedStatementCreator() {
                 @Override
                 public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
@@ -72,9 +65,12 @@ public class DailyDataManager {
                     ps.setTimestamp(2, dailyData.getTime());
                     ps.setDouble(3, dailyData.getDma50());
                     ps.setDouble(4, dailyData.getDma200());
-                    ps.setInt(5, dailyData.getBuyVolumes());
-                    ps.setDouble(6, dailyData.getClosePrevious());
-                    ps.setDouble(7, dailyData.getOpenCurrent());
+                    ps.setDouble(5, dailyData.getClosePrevious());
+                    ps.setDouble(6, dailyData.getOpenCurrent());
+                    ps.setInt(7, dailyData.getBuyVolumes());
+                    ps.setDouble(8, dailyData.getDividendPayout());
+                    ps.setDouble(9, dailyData.getYearCeiling());
+                    ps.setDouble(10, dailyData.getYearFloor());
                     return ps;
                 }
             });

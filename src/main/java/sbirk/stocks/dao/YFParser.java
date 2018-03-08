@@ -1,6 +1,7 @@
 package sbirk.stocks.dao;
 
 import java.io.IOException;
+import java.sql.Timestamp;
 
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
@@ -8,14 +9,13 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
-import sbirk.stocks.domain.Quote;
+import sbirk.stocks.domain.DailyData;
+import sbirk.stocks.domain.LiveData;
 import sbirk.stocks.domain.QuoteSourceParser;
 
 @Component
-@PropertySource("classpath:config.properties")
 public class YFParser implements QuoteSourceParser{
 	
 	private final String QUOTE_SOURCE_NAME_PROPERTY = "${yf.sourcename}";
@@ -48,7 +48,18 @@ public class YFParser implements QuoteSourceParser{
 	public String getQuoteSourceName() {
 		return QUOTE_SOURCE_NAME;
 	}
-	public Quote getLiveQuote () {
+	
+	public String getStatistic (String line, String valueName) {
+		String[] values = line.split("||");
+		for (String value: values) {
+			if (value.contains(valueName)) {
+				return value.split("|")[1];
+			}
+		}
+		return "";
+	}
+	
+	public LiveData getLiveQuote () {
 		Document doc = null;
 		int attempts = 0;
 		do {
@@ -68,12 +79,27 @@ public class YFParser implements QuoteSourceParser{
 			timeIndex = time.indexOf("AM");
 		}
 		String timeFinal = time.substring(timeIndex-5, timeIndex).trim();
-		return new Quote (quoteFinal, timeFinal, time.contains("closed"));
+		long timeMillis = System.currentTimeMillis();
+
+		return new LiveData(ticker, new Timestamp(timeMillis), Double.valueOf(quoteFinal));
 	}
 
 	
-	public String getDailyQuoteStatistics() {
-		return getQuoteSummary() + getStatisticsTable();
+	public DailyData getDailyQuoteStatistics() {
+		String statDump = getQuoteSummary() + getStatisticsTable();
+		long timeMillis = System.currentTimeMillis();
+		DailyData dailyData = new DailyData(
+				ticker, 
+				new Timestamp(timeMillis), 
+				Double.parseDouble(getStatistic(statDump, "50-Day Moving Average")),
+				Double.parseDouble(getStatistic(statDump, "200-Day Moving Average")),
+				Integer.parseInt(getStatistic(statDump, "Previous Close")),
+				Double.parseDouble(getStatistic(statDump, "Open")),
+				Double.parseDouble(getStatistic(statDump, "Volume")),
+				Double.parseDouble(getStatistic(statDump, "Forward Dividend & Yield").split(" ")[0]),
+				Double.parseDouble(getStatistic(statDump, "52 Week High")),
+				Double.parseDouble(getStatistic(statDump, "52 Week Low")));
+		return dailyData;
 	}
 	
 	private String getQuoteSummary() {

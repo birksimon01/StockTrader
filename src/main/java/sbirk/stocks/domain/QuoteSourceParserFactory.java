@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
+import sbirk.stocks.StockProperties;
 import sbirk.stocks.registry.QSPContextRegistry;
 
 @Component
@@ -12,13 +13,13 @@ import sbirk.stocks.registry.QSPContextRegistry;
 public class QuoteSourceParserFactory {
 	
 	@Autowired
-	protected QSPContextRegistry qspContextRegistry;
+	private QSPContextRegistry qspContextRegistry;
 	
-	@Value ("stocks.defaults.qsp")
-	public String qspDefaultName;
+	@Autowired
+	private StockProperties stockProperties;
 	
 	public QuoteSourceParser getQSP () {
-		return qspContextRegistry.getQSP(qspDefaultName);
+		return qspContextRegistry.getQSP(stockProperties.getDefaultQuoteSiteParser());
 	}
 	
 }

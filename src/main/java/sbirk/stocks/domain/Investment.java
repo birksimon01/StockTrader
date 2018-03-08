@@ -15,5 +15,29 @@ public class Investment {
 		this.quantity = quantity;
 		
 	}
+
+	public String getTicker() {
+		return ticker;
+	}
+
+	public void setTicker(String ticker) {
+		this.ticker = ticker;
+	}
+
+	public BigDecimal getBoughtAt() {
+		return boughtAt;
+	}
+
+	public void setBoughtAt(BigDecimal boughtAt) {
+		this.boughtAt = boughtAt;
+	}
+
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
 	
 }

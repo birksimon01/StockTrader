@@ -1,54 +1,32 @@
 package sbirk.stocks;
 
-import org.springframework.context.annotation.Configuration;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.stereotype.Component;
 
-@Configuration
-@PropertySource("classpath:config.properties")
+@Component
+@PropertySource("classpath:application.properties")
 public class StockProperties {
 	
-	private String quoteSite;
-	private String statsAddon;
-	private String stockDataDirectory;
+	@Value("${stocks.defaults.qsp}")
+	private String defaultQuoteSiteParser;
 	
-	private int secondsBetweenLiveQuoteFetch;
+	@Value("${stocks.defaults.tp}")
+	private String defaultTradingPlatform;
 	
-	private boolean showLiveQuoteStream;
-	private boolean showDailyQuoteStream;
-	private boolean showTransactions;
-	
-	private boolean backtestingMode;
+	@Value("${stocks.defualts.tp}")
+	private String defaultStockAnalysisAlgorithm;
 
-	
-	public boolean isBacktestingMode() {
-		return backtestingMode;
+	public String getDefaultQuoteSiteParser() {
+		return defaultQuoteSiteParser;
 	}
 
-	public boolean isShowTransactions() {
-		return showTransactions;
+	public String getDefaultTradingPlatform() {
+		return defaultTradingPlatform;
 	}
 
-	public boolean isShowDailyQuoteStream() {
-		return showDailyQuoteStream;
-	}
-	public boolean isShowLiveQuoteStream() {
-		return showLiveQuoteStream;
-	}
-
-	public int getSecondsBetweenLiveQuoteFetch() {
-		return secondsBetweenLiveQuoteFetch;
-	}
-	
-	public String getStockDataDirectory() {
-		return stockDataDirectory;
-	}
-
-	public String getQuoteStatsResponse() {
-		return statsAddon;
-	}
-
-	public String getQuoteSite() {
-		return quoteSite;
+	public String getDefaultStockAnalysisAlgorithm() {
+		return defaultStockAnalysisAlgorithm;
 	}
 	
 }

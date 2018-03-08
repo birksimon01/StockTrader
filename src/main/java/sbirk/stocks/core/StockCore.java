@@ -13,8 +13,6 @@ public class StockCore {
 	
 	private List<String> tickerList;
 	
-	private boolean BACKTESTING_MODE = false;
-	
 	public static void main(String[] args) {
 		
 	}
@@ -34,7 +32,7 @@ public class StockCore {
 		//stuff
 		for (String ticker: tickerList) {
 			stockQuoteMap.put(ticker, new StockQuote(ticker).start());
-			stockManagerMap.put(ticker, new StockManager(ticker).start());
+			//add in analysis part of program here
 		}
 	}
 	

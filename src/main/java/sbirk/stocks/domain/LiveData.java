@@ -4,39 +4,51 @@ import java.sql.Timestamp;
 
 public class LiveData {
 	
-	private Integer Id;
+	public LiveData (String ticker, Timestamp time, Double quotePrice) {
+		this.ticker = ticker;
+		this.time = time;
+		this.quotePrice = quotePrice;
+		this.closed = false;
+	}
 	
 	private String ticker;
 	
 	private Timestamp time;
 	
-	private String quotePrice;
+	private Double quotePrice;
+	
+	private boolean closed;
 
-	public Integer getId() {
-		return Id;
-	}
 	public String getTicker() {
 		return ticker;
-	}
-	
-	public Timestamp getTime() {
-		return time;
-	}
-	
-	public String getQuotePrice() {
-		return quotePrice;
 	}
 
 	public void setTicker(String ticker) {
 		this.ticker = ticker;
 	}
 
+	public Timestamp getTime() {
+		return time;
+	}
+
 	public void setTime(Timestamp time) {
 		this.time = time;
 	}
 
-	public void setQuotePrice(String quotePrice) {
+	public Double getQuotePrice() {
+		return quotePrice;
+	}
+
+	public void setQuotePrice(Double quotePrice) {
 		this.quotePrice = quotePrice;
+	}
+
+	public boolean isClosed() {
+		return closed;
+	}
+
+	public void setClosed(boolean closed) {
+		this.closed = closed;
 	}
 	
 }
