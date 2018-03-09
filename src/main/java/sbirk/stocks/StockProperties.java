@@ -20,6 +20,9 @@ public class StockProperties {
 		}
 	}
 	
+	@Value("${stocks.collection.livedata.secondsDelayBetweenCollection}")
+	private int liveDataCollectionSecondsDelay;
+	
 	@Value("${stocks.defaults.qsp}")
 	private String defaultQuoteSiteParser;
 	
@@ -28,6 +31,10 @@ public class StockProperties {
 	
 	@Value("${stocks.defualts.tp}")
 	private String defaultStockAnalysisAlgorithm;
+
+	public int getLiveDataCollectionSecondsDelay() {
+		return liveDataCollectionSecondsDelay;
+	}
 
 	public String getDefaultQuoteSiteParser() {
 		return defaultQuoteSiteParser;

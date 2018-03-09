@@ -22,7 +22,7 @@ public class YFParser implements QuoteSourceParser{
 	private final String QUOTE_SITE_PROPERTY = "${yf.source}";
 	private final String QUOTE_STATS_ADDON_PROPERTY = "${yf.statsquery}";
 	
-	protected String ticker = "IBM";
+	protected String ticker;
 	
 	protected Connection statsConnection;
 	protected Connection quoteConnection;
@@ -40,10 +40,11 @@ public class YFParser implements QuoteSourceParser{
 		
 	}
 	//TODO: review the structure of this class to allow for it to switch stocks its watching
-	public void start(String ticker) {
+	public QuoteSourceParser initialize(String ticker) {
 		this.ticker=ticker;
 		quoteConnection = Jsoup.connect(quoteSite + ticker);
 		statsConnection = Jsoup.connect(quoteSite + ticker + statsAddon + ticker);
+		return this;
 	}
 	public String getQuoteSourceName() {
 		return QUOTE_SOURCE_NAME;

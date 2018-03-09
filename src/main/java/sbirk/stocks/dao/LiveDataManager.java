@@ -24,7 +24,7 @@ public class LiveDataManager {
 		this.jdbcTemplate = new JdbcTemplate(dataSource);
 	}
 	
-	public void addDailyDataEntry (LiveData liveData)
+	public void addLiveDataEntry (LiveData liveData)
     {
         try {
             String sql = "INSERT into finance.LIVE(TICKER, TIME, PRICE) VALUES (?, ?, ?)";

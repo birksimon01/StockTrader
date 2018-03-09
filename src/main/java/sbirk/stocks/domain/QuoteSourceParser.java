@@ -9,4 +9,5 @@ public interface QuoteSourceParser {
 	
 	public DailyData getDailyQuoteStatistics();
 	
+	public QuoteSourceParser initialize(String ticker);
 }
