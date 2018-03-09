@@ -17,13 +17,13 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import sbirk.stocks.core.StockQuote;
+import sbirk.stocks.core.StockQuoteDataCollector;
 
 public class Tester {
 	private static Connection connection = Jsoup.connect("https://finance.yahoo.com/quote/IBM");
 	private static String URLboye = new String("https://finance.yahoo.com/quote/ibm");
 	public static void main(String[] args) throws InterruptedException {
-		StockQuote sQuote = new StockQuote("IBM").start();
+		StockQuoteDataCollector sQuote = new StockQuoteDataCollector("IBM").start();
 	}
 	
 	public static void dailyTest () {

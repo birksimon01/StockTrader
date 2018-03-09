@@ -30,18 +30,6 @@ public class DailyDataManager {
 	}
 	
 	public DailyDataManager () {
-		System.out.println("IM HERE DONT WORRY");
-		System.out.println(jdbcTemplate == null);
-		addTheThing();
-		System.out.println("probably worry now");
-		try {
-			Thread.sleep(10000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	public void addTheThing() {
 		
 	}
 	

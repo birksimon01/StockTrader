@@ -38,6 +38,7 @@ public class TPContextRegistry {
 	}
 	
 	public TradingPlatform getTP (String name) {
+		if (name == null || name == "") return null;
 		return tpMap.get(name);
 	}
 	

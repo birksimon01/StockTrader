@@ -9,7 +9,6 @@ import sbirk.stocks.StockProperties;
 import sbirk.stocks.registry.QSPContextRegistry;
 
 @Component
-@PropertySource("classpath:config.properties")
 public class QuoteSourceParserFactory {
 	
 	@Autowired

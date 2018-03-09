@@ -7,4 +7,5 @@ public interface TradingPlatform {
 
 	public String getTradingPlatformName();
 	
+	public double getTradeCost(String ticker, double pricePerStock, int sharesToBuy);
 }

@@ -8,8 +8,7 @@ public class StockCore {
 	
 	private static String dataDir = new String("C:\\Users\\Birk\\Desktop\\StockData\\");
 	
-	private static HashMap<String, StockQuote> stockQuoteMap;
-	private static HashMap<String, StockManager> stockManagerMap;
+	private static HashMap<String, StockQuoteDataCollector> stockQuoteMap;
 	
 	private List<String> tickerList;
 	
@@ -31,7 +30,7 @@ public class StockCore {
 		tickerList.add("HD");
 		//stuff
 		for (String ticker: tickerList) {
-			stockQuoteMap.put(ticker, new StockQuote(ticker).start());
+			stockQuoteMap.put(ticker, new StockQuoteDataCollector(ticker).start());
 			//add in analysis part of program here
 		}
 	}
@@ -40,11 +39,11 @@ public class StockCore {
 		return dataDir;
 	}
 	
-	public static HashMap<String, StockQuote> getStockQuoteMap() {
+	public static HashMap<String, StockQuoteDataCollector> getStockQuoteMap() {
 		return stockQuoteMap;
 	}
 
-	protected static void setStockMap(HashMap<String, StockQuote> stockMap) {
+	protected static void setStockMap(HashMap<String, StockQuoteDataCollector> stockMap) {
 		StockCore.stockQuoteMap = stockMap;
 	}
 }

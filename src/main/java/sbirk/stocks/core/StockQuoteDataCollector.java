@@ -8,11 +8,15 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-import sbirk.stocks.dao.DailyFileManager;
-import sbirk.stocks.dao.LiveFileManager;
+import sbirk.stocks.dao.DailyDataManager;
+import sbirk.stocks.dao.LiveDataManager;
 import sbirk.stocks.dao.YFParser;
-import sbirk.stocks.domain.Quote;
+import sbirk.stocks.domain.QuoteSourceParser;
+import sbirk.stocks.domain.QuoteSourceParserFactory;
+import sbirk.stocks.test.CalendarHelper;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -20,7 +24,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
-public class StockQuote {
+@Component
+public class StockQuoteDataCollector {
 
 	public Date dailyDayLast;
 	public String lastDailyStatistic;
@@ -34,25 +39,23 @@ public class StockQuote {
 	protected String dailyFileName = new String("dailyQuote.txt");
 	protected String statsAddon = new String("key-statistics?p=");
 	
-	private YFParser yahooFinanceParser;
 	
-	private DailyFileManager dailyFileManager;
+	@Autowired
+	private DailyDataManager dailyDataManager;
 
-	private LiveFileManager liveFileManager;
+	@Autowired
+	private LiveDataManager liveDataManager;
 	
-	public StockQuote (String ticker) {
-		String quoteSite = new String ("https://finance.yahoo.com/quote/" + ticker);
-		connection = Jsoup.connect(quoteSite);
-		statsConnection = Jsoup.connect(quoteSite + "/" + statsAddon + ticker);
-		calendarHelper = new CalendarHelper();
-		
-		dailyFileManager = new DailyFileManager(ticker);
-		liveFileManager = new LiveFileManager(ticker);
-		
-		yahooFinanceParser = new YFParser(ticker);
+	@Autowired
+	private QuoteSourceParserFactory qspFactory;
+	
+	private QuoteSourceParser quoteSourceParser;
+	
+	public StockQuoteDataCollector (String ticker) {
+		quoteSourceParser = qspFactory.getQSP();
 	}
 	
-	public StockQuote start () {
+	public StockQuoteDataCollector start () {
 		Timer timer = new Timer();
 		timer.schedule(new fetchStockInfo(), Calendar.getInstance().getTime(), TimeUnit.MILLISECONDS.convert(1, TimeUnit.DAYS));
 		timer.schedule(new fetchLiveQuote(), Calendar.getInstance().getTime(), TimeUnit.MILLISECONDS.convert(3, TimeUnit.SECONDS));
@@ -97,14 +100,6 @@ public class StockQuote {
 			
 		}
 		
-	}
-
-	public DailyFileManager getDailyFileManager() {
-		return dailyFileManager;
-	}
-	
-	public LiveFileManager getLiveFileManager() {
-		return liveFileManager;
 	}
 	
 }

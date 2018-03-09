@@ -1,10 +1,10 @@
 package sbirk.stocks.test;
 
-import sbirk.stocks.core.StockQuote;
+import sbirk.stocks.core.StockQuoteDataCollector;
 
 public class QSPTest {
 	
 	public static void main(String[] args) {
-		StockQuote sq = new StockQuote("IBM").start();
+		StockQuoteDataCollector sq = new StockQuoteDataCollector("IBM").start();
 	}
 }
