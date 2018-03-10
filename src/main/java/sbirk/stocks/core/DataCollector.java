@@ -46,6 +46,7 @@ public class DataCollector {
 		timer.cancel();
 		//implement a close method to neutralize quoteSourceParser connections
 	}
+	
 	private class fetchStockInfo extends TimerTask {
 		
 		@Override

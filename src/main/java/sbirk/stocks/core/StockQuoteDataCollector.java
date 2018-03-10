@@ -1,30 +1,19 @@
 package sbirk.stocks.core;
 
 
-import java.io.IOException;
-
 import org.jsoup.Connection;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import sbirk.stocks.StockProperties;
 import sbirk.stocks.dao.DailyDataManager;
 import sbirk.stocks.dao.LiveDataManager;
-import sbirk.stocks.dao.YFParser;
 import sbirk.stocks.domain.QuoteSourceParser;
 import sbirk.stocks.domain.QuoteSourceParserFactory;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.concurrent.TimeUnit;
 
 @Component
 public class StockQuoteDataCollector {
@@ -58,6 +47,7 @@ public class StockQuoteDataCollector {
 	public StockQuoteDataCollector () {
 		dataCollectorList = new ArrayList<DataCollector>();
 		quoteSourceParser = qspFactory.getQSP();
+		collectData("IBM");
 	}
 	
 	public void collectData (String ticker) {

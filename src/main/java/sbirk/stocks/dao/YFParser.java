@@ -73,13 +73,9 @@ public class YFParser implements QuoteSourceParser{
 		} while ((doc == null) || attempts <= 3);
 		
 		String quoteCurrent = doc.getElementsByClass("Trsdu(0.3s) Fw(b) Fz(36px) Mb(-4px) D(ib)").toString();
-		String time = doc.getElementById("quote-market-notice").toString();
+
 		String quoteFinal = quoteCurrent.substring(quoteCurrent.indexOf("-->") + 3, quoteCurrent.lastIndexOf("<!--")).trim();
-		int timeIndex = time.indexOf("PM");
-		if (timeIndex == -1) {
-			timeIndex = time.indexOf("AM");
-		}
-		String timeFinal = time.substring(timeIndex-5, timeIndex).trim();
+		
 		long timeMillis = System.currentTimeMillis();
 
 		return new LiveData(ticker, new Timestamp(timeMillis), Double.valueOf(quoteFinal));
@@ -152,4 +148,5 @@ public class YFParser implements QuoteSourceParser{
 		}
 		return valueName;
 	}
+	
 }

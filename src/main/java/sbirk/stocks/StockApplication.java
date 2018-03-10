@@ -10,6 +10,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 
+import sbirk.stocks.core.StockQuoteDataCollector;
 import sbirk.stocks.dao.DailyDataManager;
 import sbirk.stocks.registry.QSPContextRegistry;
 import sbirk.stocks.registry.SAAContextRegistry;
@@ -32,7 +33,7 @@ public class StockApplication {
 	public SAAContextRegistry saaContextRegistry;
 
 	@Autowired
-	public DailyDataManager dailyDataManager;
+	public StockQuoteDataCollector stockQuoteDataCollector;
 	
 	public static void main (String[] args) throws InterruptedException {
 		SpringApplication.run(StockApplication.class, args);
