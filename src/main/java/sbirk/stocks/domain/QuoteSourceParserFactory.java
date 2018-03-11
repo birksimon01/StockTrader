@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
+import com.jayway.jsonpath.Configuration.Defaults;
+
 import sbirk.stocks.StockProperties;
 import sbirk.stocks.registry.QSPContextRegistry;
 
@@ -18,7 +20,7 @@ public class QuoteSourceParserFactory {
 	private StockProperties stockProperties;
 	
 	public QuoteSourceParser getQSP () {
-		return qspContextRegistry.getQSP(stockProperties.getDefaultQuoteSiteParser());
+		return qspContextRegistry.getQSP(stockProperties.getDefaultQsp());
 	}
 	
 }

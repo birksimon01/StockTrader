@@ -33,6 +33,9 @@ public class DailyDataManager {
 		
 	}
 	
+	//positive number = days into the future, negative number = days into the past
+	//what a beautiful piece of unused code
+	//its staying here no matter what
 	private String toDate(int daysFromToday) {
         final Calendar cal = Calendar.getInstance();
         cal.add(Calendar.DATE, daysFromToday);

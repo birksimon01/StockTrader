@@ -1,7 +1,6 @@
 package sbirk.stocks.core;
 
 
-import org.jsoup.Connection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -12,22 +11,13 @@ import sbirk.stocks.domain.QuoteSourceParser;
 import sbirk.stocks.domain.QuoteSourceParserFactory;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
+
+import javax.annotation.PostConstruct;
 
 @Component
 public class StockQuoteDataCollector {
 
-	public Date dailyDayLast;
-	public String lastDailyStatistic;
-	
-	protected Connection connection;
-	protected Connection statsConnection;
-	
-	protected String liveFileName = new String("liveQuote.txt");
-	protected String dailyFileName = new String("dailyQuote.txt");
-	protected String statsAddon = new String("key-statistics?p=");
-	
 	@Autowired
 	private StockProperties stockProperties;
 	
@@ -47,11 +37,16 @@ public class StockQuoteDataCollector {
 	public StockQuoteDataCollector () {
 		dataCollectorList = new ArrayList<DataCollector>();
 		quoteSourceParser = qspFactory.getQSP();
+	}
+	
+	@PostConstruct
+	public void test () {
+		System.out.println("Collection Test");
 		collectData("IBM");
 	}
 	
 	public void collectData (String ticker) {
-		dataCollectorList.add(new DataCollector(ticker, quoteSourceParser, dailyDataManager, liveDataManager, stockProperties.getLiveDataCollectionSecondsDelay()).collect());
+		dataCollectorList.add(new DataCollector(ticker, quoteSourceParser, dailyDataManager, liveDataManager, stockProperties.getLiveCollectionDelay()).collect());
 	}
 	
 	public void cancelDataCollection (String ticker) {

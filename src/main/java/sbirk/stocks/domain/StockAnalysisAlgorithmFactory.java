@@ -14,6 +14,6 @@ public class StockAnalysisAlgorithmFactory {
 	private StockProperties stockProperties;
 	
 	public StockAnalysisAlgorithm getSAA () {
-		return saaContextRegistry.getSAA(stockProperties.getDefaultStockAnalysisAlgorithm());
+		return saaContextRegistry.getSAA(stockProperties.getDefaultSaa());
 	}
 }

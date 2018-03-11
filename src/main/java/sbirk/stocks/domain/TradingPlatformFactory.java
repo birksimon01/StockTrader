@@ -14,7 +14,7 @@ public class TradingPlatformFactory {
 	private StockProperties stockProperties;
 	
 	public TradingPlatform getTP (String ticker, double pricePerStock, int sharesToBuy) {
-		TradingPlatform tpDefault = tpContextRegistry.getTP(stockProperties.getDefaultTradingPlatform());
+		TradingPlatform tpDefault = tpContextRegistry.getTP(stockProperties.getDefaultTp());
 		double cost = 0.0;
 		
 		if (tpDefault == null) {

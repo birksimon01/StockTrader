@@ -19,6 +19,7 @@ public class FileRW {
 	
 	private String dataPath;
 	private String liveFileName = new String("liveQuote.txt");
+	private String dailyFileName = new String("dailyQuote.txt");
 	
 	private FileWriter liveFW;
 	private FileWriter dailyFW;

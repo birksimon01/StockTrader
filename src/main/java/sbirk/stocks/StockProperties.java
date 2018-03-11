@@ -1,51 +1,75 @@
 package sbirk.stocks;
 
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.stereotype.Component;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 
-@Component
-@PropertySource("classpath:application.properties")
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+@ConfigurationProperties(prefix = "stocks")
 public class StockProperties {
 	
-	public StockProperties () {
-		System.out.println(this.defaultQuoteSiteParser);
-		System.out.println(this.defaultTradingPlatform);
-		System.out.println(this.defaultStockAnalysisAlgorithm);
-		try {
-			Thread.sleep(4000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+	@Min(1)
+	@Max(65536)
+	private int liveCollectionDelay;
 	
-	@Value("${stocks.collection.livedata.secondsDelayBetweenCollection}")
-	private int liveDataCollectionSecondsDelay;
+	@NotBlank
+	private String defaultQsp;
 	
-	@Value("${stocks.defaults.qsp}")
-	private String defaultQuoteSiteParser;
+	@NotBlank
+	private String defaultSaa;
 	
-	@Value("${stocks.defaults.tp}")
-	private String defaultTradingPlatform;
 	
-	@Value("${stocks.defualts.tp}")
-	private String defaultStockAnalysisAlgorithm;
-
-	public int getLiveDataCollectionSecondsDelay() {
-		return liveDataCollectionSecondsDelay;
+	private String defaultTp;
+	
+	
+	
+	public int getLiveCollectionDelay() {
+		return liveCollectionDelay;
 	}
 
-	public String getDefaultQuoteSiteParser() {
-		return defaultQuoteSiteParser;
+
+
+	public void setLiveCollectionDelay(int liveCollectionDelay) {
+		this.liveCollectionDelay = liveCollectionDelay;
 	}
 
-	public String getDefaultTradingPlatform() {
-		return defaultTradingPlatform;
+
+
+	public String getDefaultQsp() {
+		return defaultQsp;
 	}
 
-	public String getDefaultStockAnalysisAlgorithm() {
-		return defaultStockAnalysisAlgorithm;
+
+
+	public void setDefaultQsp(String defaultQsp) {
+		this.defaultQsp = defaultQsp;
+	}
+
+
+
+	public String getDefaultSaa() {
+		return defaultSaa;
+	}
+
+
+
+	public void setDefaultSaa(String defaultSaa) {
+		this.defaultSaa = defaultSaa;
+	}
+
+
+
+	public String getDefaultTp() {
+		return defaultTp;
+	}
+
+
+
+	public void setDefaultTp(String defaultTp) {
+		this.defaultTp = defaultTp;
 	}
 	
 }
