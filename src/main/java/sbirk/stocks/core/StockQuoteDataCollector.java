@@ -27,7 +27,6 @@ public class StockQuoteDataCollector {
 	@Autowired
 	private LiveDataManager liveDataManager;
 	
-	@Autowired
 	private QuoteSourceParserFactory qspFactory;
 	
 	private QuoteSourceParser quoteSourceParser;
@@ -35,7 +34,9 @@ public class StockQuoteDataCollector {
 	private List<DataCollector> dataCollectorList;
 	
 	public StockQuoteDataCollector () {
+		qspFactory = new QuoteSourceParserFactory();
 		dataCollectorList = new ArrayList<DataCollector>();
+		System.out.println(qspFactory == null);
 		quoteSourceParser = qspFactory.getQSP();
 	}
 	

@@ -1,35 +1,31 @@
-package sbirk.stocks.service;
+package sbirk.stocks.test;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.GregorianCalendar;
-import java.util.List;
 
 import org.springframework.stereotype.Component;
 
 import sbirk.stocks.domain.StockAnalysisAlgorithm;
 
+import java.util.GregorianCalendar;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
-@Component
 public class SimpleMovingAverageAlgorithm implements StockAnalysisAlgorithm {
+	
 	public BigDecimal dma50;
 	public BigDecimal dma200;
 	public String ticker;
-	public SimpleMovingAverageAlgorithm () {
-		
-	}
-	public void start(String ticker) {
-		this.ticker = ticker;
-	}
+	
+	
 	@Override
 	public String getAlgorithmName() {
 		// TODO Auto-generated method stub
 		return "DSMA50V200";
 	}
-	public void start () {
+	
+	public void start (String ticker) {
+		this.ticker = ticker;
 		new Timer().schedule(new MovingAverageAlgorithm(), getStartTime().getTimeInMillis(), TimeUnit.MILLISECONDS.convert(1, TimeUnit.DAYS));
 	}
 	

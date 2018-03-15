@@ -8,14 +8,17 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import sbirk.stocks.domain.DailyData;
 import sbirk.stocks.domain.LiveData;
 import sbirk.stocks.domain.QuoteSourceParser;
 
-@Component
+@Service
+@Configurable
 public class YFParser implements QuoteSourceParser{
 	
 	private final String QUOTE_SOURCE_NAME_PROPERTY = "${yf.sourcename}";

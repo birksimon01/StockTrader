@@ -1,16 +1,14 @@
 package sbirk.stocks.domain;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.stereotype.Component;
-
-import com.jayway.jsonpath.Configuration.Defaults;
+import org.springframework.beans.factory.annotation.Configurable;
+import org.springframework.stereotype.Service;
 
 import sbirk.stocks.StockProperties;
 import sbirk.stocks.registry.QSPContextRegistry;
 
-@Component
+@Service
+@Configurable
 public class QuoteSourceParserFactory {
 	
 	@Autowired
@@ -20,6 +18,7 @@ public class QuoteSourceParserFactory {
 	private StockProperties stockProperties;
 	
 	public QuoteSourceParser getQSP () {
+		System.out.print("QuoteSourceParserFactory: default qsp -- " + stockProperties.getDefaultQsp());
 		return qspContextRegistry.getQSP(stockProperties.getDefaultQsp());
 	}
 	

@@ -14,13 +14,17 @@ import sbirk.stocks.core.StockQuoteDataCollector;
 import sbirk.stocks.registry.QSPContextRegistry;
 import sbirk.stocks.registry.SAAContextRegistry;
 import sbirk.stocks.registry.TPContextRegistry;
-import sbirk.stocks.toolbox.EmailSender;
 
 @SpringBootApplication
-@ComponentScan("sbirk.stocks")
+@ComponentScan("sbirk")
 public class StockApplication {
 	
-	/*
+	@Autowired
+	public CommonBeans commonBeans;
+	
+	@Autowired
+	public StockProperties stockProperties;
+	
 	@Autowired
 	public QSPContextRegistry qspContextRegistry;
 	
@@ -29,13 +33,6 @@ public class StockApplication {
 	
 	@Autowired
 	public SAAContextRegistry saaContextRegistry;
-
-	@Autowired
-	public StockQuoteDataCollector stockQuoteDataCollector;
-	*/
-	
-	@Autowired
-	public EmailSender emailSender;
 	
 	public static void main (String[] args) throws InterruptedException {
 		SpringApplication.run(StockApplication.class, args);

@@ -1,9 +1,11 @@
 package sbirk.stocks;
 
+import javax.annotation.PostConstruct;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 
+import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
@@ -72,4 +74,10 @@ public class StockProperties {
 		this.defaultTp = defaultTp;
 	}
 	
+	@PostConstruct
+	public void print () {
+		System.out.println("StockProperties: " + defaultQsp);
+		System.out.println("StockProperties: " + defaultSaa);
+		System.out.println("StockProperties: " + defaultTp);
+	}
 }
