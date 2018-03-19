@@ -1,11 +1,13 @@
 package sbirk.stocks;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.annotation.PostConstruct;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 
-import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
@@ -27,7 +29,22 @@ public class StockProperties {
 	private String defaultTp;
 	
 	
+	private List<String> tickers = new ArrayList<String>();
 	
+	
+	
+	public List<String> getTickers() {
+		return tickers;
+	}
+
+
+
+	public void setTickers(List<String> tickers) {
+		this.tickers = tickers;
+	}
+
+
+
 	public int getLiveCollectionDelay() {
 		return liveCollectionDelay;
 	}

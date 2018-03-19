@@ -13,12 +13,14 @@ import org.reflections.util.ConfigurationBuilder;
 import org.reflections.util.FilterBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
 import sbirk.stocks.domain.QuoteSourceParser;
 import sbirk.stocks.domain.StockAnalysisAlgorithm;
 
 @Component
+@DependsOn("CommonBeans")
 public class SAAContextRegistry {
 
 	public String HOME_SAA_PACKAGE = "sbirk.stocks.executive";

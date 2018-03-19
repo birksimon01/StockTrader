@@ -2,20 +2,20 @@ package sbirk.stocks.core;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
 import sbirk.stocks.StockProperties;
 import sbirk.stocks.dao.DailyDataManager;
 import sbirk.stocks.dao.LiveDataManager;
+import sbirk.stocks.dao.QuoteSourceParserFactory;
 import sbirk.stocks.domain.QuoteSourceParser;
-import sbirk.stocks.domain.QuoteSourceParserFactory;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
-
 @Component
+@DependsOn(value = {"QuoteSourceParserFactory", "StockProperties", "DailyDataManager", "LiveDataManager"})
 public class StockQuoteDataCollector {
 
 	@Autowired
@@ -27,6 +27,7 @@ public class StockQuoteDataCollector {
 	@Autowired
 	private LiveDataManager liveDataManager;
 	
+	@Autowired
 	private QuoteSourceParserFactory qspFactory;
 	
 	private QuoteSourceParser quoteSourceParser;
@@ -34,20 +35,12 @@ public class StockQuoteDataCollector {
 	private List<DataCollector> dataCollectorList;
 	
 	public StockQuoteDataCollector () {
-		qspFactory = new QuoteSourceParserFactory();
 		dataCollectorList = new ArrayList<DataCollector>();
-		System.out.println(qspFactory == null);
 		quoteSourceParser = qspFactory.getQSP();
-	}
-	
-	@PostConstruct
-	public void test () {
-		System.out.println("Collection Test");
-		collectData("IBM");
-	}
-	
-	public void collectData (String ticker) {
-		dataCollectorList.add(new DataCollector(ticker, quoteSourceParser, dailyDataManager, liveDataManager, stockProperties.getLiveCollectionDelay()).collect());
+		List<String> tickers = stockProperties.getTickers();
+		for (String ticker: tickers) {
+			dataCollectorList.add(new DataCollector(ticker, quoteSourceParser, dailyDataManager, liveDataManager, stockProperties.getLiveCollectionDelay()).collect());
+		}
 	}
 	
 	public void cancelDataCollection (String ticker) {

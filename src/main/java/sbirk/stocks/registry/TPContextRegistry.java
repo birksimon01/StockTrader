@@ -32,7 +32,7 @@ public class TPContextRegistry {
 		print("---TP CONTEXT REGISTRY---");
 		tpMap = new HashMap<String, TradingPlatform> ();
 		Reflections tpReflections = this.getReflections(HOME_TP_PACKAGE);
-		Set<Class<? extends QuoteSourceParser>> classes = tpReflections.getSubTypesOf(QuoteSourceParser.class);
+		Set<Class<? extends TradingPlatform>> classes = tpReflections.getSubTypesOf(TradingPlatform.class);
 		for (Class tp: classes) {
 			String name = tp.getName().substring(23);
 			TradingPlatform tradingPlatform = (TradingPlatform) ctx.getBean(name);

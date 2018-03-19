@@ -10,29 +10,9 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 
-import sbirk.stocks.core.StockQuoteDataCollector;
-import sbirk.stocks.registry.QSPContextRegistry;
-import sbirk.stocks.registry.SAAContextRegistry;
-import sbirk.stocks.registry.TPContextRegistry;
-
 @SpringBootApplication
-@ComponentScan("sbirk")
+@ComponentScan("sbirk.stocks")
 public class StockApplication {
-	
-	@Autowired
-	public CommonBeans commonBeans;
-	
-	@Autowired
-	public StockProperties stockProperties;
-	
-	@Autowired
-	public QSPContextRegistry qspContextRegistry;
-	
-	@Autowired
-	public TPContextRegistry tpContextRegistry;
-	
-	@Autowired
-	public SAAContextRegistry saaContextRegistry;
 	
 	public static void main (String[] args) throws InterruptedException {
 		SpringApplication.run(StockApplication.class, args);

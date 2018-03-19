@@ -10,7 +10,8 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import sbirk.stocks.domain.DailyData;
@@ -18,6 +19,7 @@ import sbirk.stocks.domain.LiveData;
 import sbirk.stocks.domain.QuoteSourceParser;
 
 @Service
+@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 @Configurable
 public class YFParser implements QuoteSourceParser{
 	

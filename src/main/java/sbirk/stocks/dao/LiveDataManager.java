@@ -4,7 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 
+import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,4 +45,10 @@ public class LiveDataManager {
             //throw e;
         }
     }
+	
+	@PostConstruct
+	public void liveTableTest () {
+		LiveData liveData = new LiveData("XXX", new Timestamp(System.currentTimeMillis()), 123.32);
+		addLiveDataEntry(liveData);
+	}
 }

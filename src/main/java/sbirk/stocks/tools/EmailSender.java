@@ -1,4 +1,4 @@
-package sbirk.stocks.toolbox;
+package sbirk.stocks.tools;
 
 import java.util.Properties;
 
@@ -36,13 +36,14 @@ public class EmailSender {
 	public boolean sendEmail (String senderUsername, String senderPassword, String recipient, String title, String body) {
 		
 		Session session = Session.getDefaultInstance(properties,
-				new Authenticator() {
-					protected PasswordAuthentication getPasswordAuthentication () {
-						return new PasswordAuthentication(senderUsername, senderPassword);
-					}
-				});
+			new Authenticator() {
+				protected PasswordAuthentication getPasswordAuthentication () {
+					return new PasswordAuthentication(senderUsername, senderPassword);
+				}
+		});
 		
 		try {
+			
 			MimeMessage message = new MimeMessage(session);
 			message.setFrom(new InternetAddress(senderUsername));
 			message.addRecipient(Message.RecipientType.TO, new InternetAddress(recipient));
@@ -73,14 +74,7 @@ public class EmailSender {
 	}
 	
 	@PostConstruct
-	public void test () {
-		sendUpdate("STOCKTRADER: Shares Bought", "StockTrader has bought x shares of stock y for z amount of money");
-		try {
-			Thread.sleep(5000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		sendError("An exception has been thrown in StockTrader\r\nSTATUS: up\r\nsbirk.stocks.dao.YFParser.getLiveQuote() has failed");
+	private void startNotificationMessage () {
+		sendUpdate("STOCKTRADER: Initializing Program", "STOCKTRADER is starting up now.\r\nEmailSender has been initialized, updates will be provided for every buy/sell order as well as any uncaught exception that's thrown");
 	}
 }
