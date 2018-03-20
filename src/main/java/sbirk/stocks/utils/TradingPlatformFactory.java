@@ -1,4 +1,4 @@
-package sbirk.stocks.dao;
+package sbirk.stocks.utils;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.DependsOn;

@@ -8,18 +8,17 @@ import org.springframework.stereotype.Component;
 import sbirk.stocks.StockProperties;
 import sbirk.stocks.dao.DailyDataManager;
 import sbirk.stocks.dao.LiveDataManager;
-import sbirk.stocks.dao.QuoteSourceParserFactory;
 import sbirk.stocks.domain.QuoteSourceParser;
+import sbirk.stocks.utils.QuoteSourceParserFactory;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Component
-@DependsOn(value = {"QuoteSourceParserFactory", "StockProperties", "DailyDataManager", "LiveDataManager"})
+@DependsOn(value = {"QuoteSourceParserFactory", "DailyDataManager", "LiveDataManager"})
 public class StockQuoteDataCollector {
 
-	@Autowired
-	private StockProperties stockProperties;
+	private StockProperties stockProperties = new StockProperties();
 	
 	@Autowired
 	private DailyDataManager dailyDataManager;

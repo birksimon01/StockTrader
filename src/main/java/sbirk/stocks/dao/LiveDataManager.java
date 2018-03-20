@@ -45,10 +45,4 @@ public class LiveDataManager {
             //throw e;
         }
     }
-	
-	@PostConstruct
-	public void liveTableTest () {
-		LiveData liveData = new LiveData("XXX", new Timestamp(System.currentTimeMillis()), 123.32);
-		addLiveDataEntry(liveData);
-	}
 }

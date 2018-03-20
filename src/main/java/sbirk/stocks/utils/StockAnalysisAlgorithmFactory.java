@@ -1,4 +1,4 @@
-package sbirk.stocks.dao;
+package sbirk.stocks.utils;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.DependsOn;
@@ -9,14 +9,12 @@ import sbirk.stocks.domain.StockAnalysisAlgorithm;
 import sbirk.stocks.registry.SAAContextRegistry;
 
 @Component
-@DependsOn(value = {"SAAContextRegistry", "StockProperties"})
 public class StockAnalysisAlgorithmFactory {
 
 	@Autowired
 	private SAAContextRegistry saaContextRegistry;
 	
-	@Autowired
-	private StockProperties stockProperties;
+	private StockProperties stockProperties = new StockProperties();
 	
 	public StockAnalysisAlgorithm getSAA () {
 		return saaContextRegistry.getSAA(stockProperties.getDefaultSaa());

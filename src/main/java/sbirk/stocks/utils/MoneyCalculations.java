@@ -1,4 +1,4 @@
-package sbirk.stocks.tools;
+package sbirk.stocks.utils;
 
 import java.math.BigDecimal;
 
